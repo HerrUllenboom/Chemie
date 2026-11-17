@@ -1,18 +1,149 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Chemie – Interaktive Animationen</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Chemie-Animationen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Carlito:wght@400;700&display=swap">
+<style>
+:root{--bg:#F7FAFA;--surface:#FFFFFF;--fg:#1E2A2C;--muted:#5F6E70;--line:#D5DFE0;--accent:#1F6F78;--accent-fg:#FFFFFF;
+  --accent-soft:#E3F1F2;--accent-ink:#14474D;--warn:#A2512A;--font:'Carlito',Calibri,'Segoe UI',system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#121819;--surface:#1A2224;--fg:#E3ECEC;--muted:#9AAAAC;--line:#2E3A3C;
+  --accent:#5FAFB8;--accent-fg:#0E1A1C;--accent-soft:#1C3539;--accent-ink:#BFE3E7;--warn:#D2743F;color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:17px;line-height:1.35;-webkit-text-size-adjust:100%}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.app{max-width:1000px;margin:0 auto;padding:16px 16px 32px}
+header{border-bottom:3px solid var(--accent);padding-bottom:8px;margin-bottom:14px}
+.eyebrow{font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{margin:2px 0 2px;font-size:27px;line-height:1.1}
+.sub{color:var(--muted);font-size:15.5px;margin:0}
+h2{font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px}
+.tile{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;min-height:132px}
+.tile b{font-size:19px;line-height:1.15}
+.tile .s{color:var(--muted);font-size:15px}
+.tile form{display:flex;gap:8px;margin-top:auto}
+.tile input{flex:1;min-width:0;min-height:46px;padding:6px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);font-size:17px}
+.btn{min-height:46px;padding:6px 16px;border-radius:8px;border:1.5px solid var(--accent);background:var(--accent);color:var(--accent-fg);font-weight:700;cursor:pointer;touch-action:manipulation;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.btn.ghost{background:var(--surface);color:var(--accent-ink);border-color:var(--line)}
+.tile .msg{min-height:1.2em;font-size:14.5px;color:var(--warn);font-weight:700;margin:-2px 0 0}
+.tile.open{border-color:var(--accent);background:var(--accent-soft)}
+.tile .row{display:flex;gap:8px;margin-top:auto}
+.tile .row .btn:first-child{flex:1}
+.lock{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:var(--muted)}
+.lock svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2}
+footer{margin-top:28px;color:var(--muted);font-size:14px;border-top:1px solid var(--line);padding-top:10px}
+/* Lehrkraft-Bereich, nur über #lehrkraft sichtbar */
+#teach{display:none;margin-top:24px;background:var(--surface);border:1.5px dashed var(--accent);border-radius:12px;padding:14px}
+#teach.on{display:block}
+#teach label{display:block;font-size:14px;color:var(--muted);margin-top:8px}
+#teach input{width:100%;min-height:42px;padding:6px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg)}
+#teach textarea{width:100%;min-height:70px;font-family:ui-monospace,Consolas,monospace;font-size:13px;padding:8px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg)}
+</style>
 </head>
 <body>
-  <h1>Interaktive Chemieanimationen</h1>
-  <p>Unterrichtsmaterialien von Nils Ullenboom</p>
+<div class="app">
+  <header>
+    <div class="eyebrow">Chemie · Teilchenanimationen</div>
+    <h1>Animationen</h1>
+    <p class="sub">Gib das Passwort ein, das du von deiner Lehrkraft bekommen hast.</p>
+  </header>
+  <main id="list"></main>
+  <section id="teach" aria-label="Lehrkraft: neuen Eintrag erzeugen">
+    <b>Lehrkraft: Eintrag erzeugen</b>
+    <p class="sub">Erzeugt eine Zeile für die Liste <code>ANIMATIONEN</code> im Quelltext. Passwort und Link stehen danach nicht im Klartext in der Datei.</p>
+    <label for="tg">Gruppe (<code>q2</code> oder <code>tm</code>)</label><input id="tg" value="q2">
+    <label for="ti">Kürzel (eindeutig, z. B. <code>sn1</code>)</label><input id="ti">
+    <label for="tt">Titel</label><input id="tt">
+    <label for="ts">Untertitel</label><input id="ts">
+    <label for="tu">Link zur Animation</label><input id="tu" inputmode="url">
+    <label for="tp">Passwort</label><input id="tp">
+    <p><button class="btn" id="tgo" type="button">Zeile erzeugen</button></p>
+    <textarea id="tout" readonly aria-label="Erzeugte Zeile"></textarea>
+  </section>
+  <footer>Die Animationen öffnen sich in diesem Tab. Mit „Zurück“ im Browser kommst du wieder hierher.</footer>
+</div>
+<script>
+'use strict';
+/* Gruppen der Übersicht */
+const GRUPPEN={q2:'Q2 · Vom Erdöl zur Plastiktüte', tm:'Teilchenmodell'};
+/* Jede Zeile: Titel und Untertitel im Klartext, Prüfwert c und verschlüsselter Link u.
+   Neue Zeilen erzeugst du über index.html#lehrkraft. */
+const ANIMATIONEN=[
+  {g:'q2', id:'rs1', t:'Radikalische Substitution', s:'Methan + Brom im Licht', c:'1uoreyy', u:'WOepeP9LIZRYdcHj4R1LTkU1Fr8IDZ6ImMbyd1q+jeroMgpK/NlsFxqorNGDsY3Bug=='},
+  {g:'q2', id:'rs2', t:'Radikalische Substitution (V2)', s:'Ethan + Brom im Licht', c:'we6j34', u:'uLDG7XnhWAhJ47+OkdUh91vdH2sxPEPn9PAftDMixdKGPIKHyRPwbgtQ0LzbuUq3bw=='},
+  {g:'q2', id:'ra', t:'Radikalische Addition', s:'Ethen + Brom im Licht', c:'t5wv37', u:'7lIE8rwWOs+t98jrQj6zY07ZhxoXMwCzDsLnltQ+zSyUuNjbp/9NKsPrQF3pTwXrMg=='},
+  {g:'q2', id:'ea', t:'Elektrophile Addition', s:'Ethen + Brom', c:'1dnvobx', u:'BcpUp0ZvsbNzozZ82XvplE+eoFUEJ99869v2+pOrylPm/zZrgRObeM2FagNL3PznAg=='},
+  {g:'q2', id:'el', t:'Eliminierung', s:'Bromethan + Hydroxid-Ionen', c:'14byegz', u:'AOCr7ghCP96cphcC4HhLSpmU6LWxrAMqwbfBBx4eTv8PrbdFeVeX09Uf4tJOdnnecw=='},
+  {g:'q2', id:'rp1', t:'Radikalische Polymerisation', s:'Ethen zu Polyethen', c:'wmfult', u:'F8VQeIrX8D4VaSamd/cJbb8V4s4gIJ3jPHFqnsrEH2IEXV+XoKocEhLh+y/UCSxa1A=='},
+  {g:'q2', id:'rp2', t:'Radikalische Polymerisation (V2)', s:'mit Van-der-Waals-Kräften', c:'1rp8cte', u:'RbAENj/cWLcPirVsotcysIFejnhc9XRcBOmCfFaVW9eOiHEiJzJmWg2xjcLaZNfNxg=='},
+  {g:'q2', id:'cr', t:'Cracken von Alkanen', s:'Spaltung langkettiger Alkane', c:'mpdj65', u:'Hcee7ifgH2B0W1WCOzV4ocNo5axwlPz/I334kss0x6Pmv3KG416VbRuU8eKtXIhXTw=='},
+  {g:'tm', id:'az', t:'Aggregatzustände', s:'Teilchenmodell, Temperatur und Druck', c:'lq3xs0', u:'cCdfSEQUov8BVMVbAXHiHo8LPEiaaLDWs8D4R+z8axQ2nL3eRsfIYbMb1NuSr54+BA=='}
+];
 
-  <ul>
-    <li><a href="Animation Radikalische Substitution Ethan.html">Animation 1</a></li>
-    <li><a href="Animation Radikalische Substitution Methan.html">Animation 2</a></li>
-  </ul>
+/* ---------- Verschlüsselung (einfach, nur gegen Herumklicken) ---------- */
+const TE=new TextEncoder(), TD=new TextDecoder();
+const norm=p=>String(p).trim().toLowerCase().normalize('NFC');
+function fnv(s){let h=0x811c9dc5;for(const c of TE.encode(s)){h^=c;h=Math.imul(h,0x01000193)>>>0;}return h>>>0;}
+function stream(seed){let a=seed>>>0;return()=>{a=(a+0x6D2B79F5)>>>0;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)&255;};}
+function xor(bytes,pw,salt){const r=stream(fnv('key|'+salt+'|'+norm(pw)));return bytes.map(b=>b^r());}
+const chk=(pw,salt)=>fnv('chk|'+salt+'|'+norm(pw)).toString(36);
+const b64d=s=>Array.from(atob(s),c=>c.charCodeAt(0));
+const b64e=a=>btoa(String.fromCharCode.apply(null,a));
+function dec(a,pw){return TD.decode(new Uint8Array(xor(b64d(a.u),pw,a.id)));}
+function enc(url,pw,salt){return b64e(xor(Array.from(TE.encode(url)),pw,salt));}
+
+/* Freigeschaltete Animationen merkt sich der Browser bis zum Schließen des Tabs. */
+const KEY='anim-frei';
+function getOpen(){try{return JSON.parse(sessionStorage.getItem(KEY)||'{}');}catch(e){return {};}}
+function setOpen(o){try{sessionStorage.setItem(KEY,JSON.stringify(o));}catch(e){}}
+
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const LOCK='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
+
+function render(){
+  const open=getOpen();let h='';
+  Object.keys(GRUPPEN).forEach(g=>{
+    const items=ANIMATIONEN.filter(a=>a.g===g);if(!items.length)return;
+    h+='<h2>'+esc(GRUPPEN[g])+'</h2><div class="grid">';
+    items.forEach(a=>{
+      const url=open[a.id];
+      h+='<article class="tile'+(url?' open':'')+'" data-id="'+esc(a.id)+'"><b>'+esc(a.t)+'</b><span class="s">'+esc(a.s)+'</span>';
+      if(url){h+='<div class="row"><a class="btn" href="'+esc(url)+'">Öffnen</a><button class="btn ghost" type="button" data-close>Sperren</button></div>';}
+      else{h+='<span class="lock">'+LOCK+'gesperrt</span><form><input type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Passwort" aria-label="Passwort für '+esc(a.t)+'"><button class="btn" type="submit">Öffnen</button></form><p class="msg" role="alert"></p>';}
+      h+='</article>';
+    });
+    h+='</div>';
+  });
+  document.getElementById('list').innerHTML=h;
+}
+document.getElementById('list').addEventListener('submit',e=>{
+  e.preventDefault();
+  const tile=e.target.closest('.tile'), a=ANIMATIONEN.find(x=>x.id===tile.dataset.id), inp=tile.querySelector('input'), pw=inp.value;
+  if(pw&&chk(pw,a.id)===a.c){const url=dec(a,pw);const o=getOpen();o[a.id]=url;setOpen(o);location.href=url;}
+  else{tile.querySelector('.msg').textContent='Dieses Passwort stimmt nicht.';inp.value='';inp.focus();}
+});
+document.getElementById('list').addEventListener('click',e=>{
+  if(!e.target.closest('[data-close]'))return;
+  const o=getOpen();delete o[e.target.closest('.tile').dataset.id];setOpen(o);render();
+});
+window.addEventListener('pageshow',render);
+
+/* ---------- Lehrkraft-Bereich ---------- */
+function teach(){document.getElementById('teach').classList.toggle('on',location.hash==='#lehrkraft');}
+window.addEventListener('hashchange',teach);teach();
+document.getElementById('tgo').addEventListener('click',()=>{
+  const v=id=>document.getElementById(id).value.trim(), q=s=>s.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+  const g=v('tg'),id=v('ti'),t=v('tt'),s=v('ts'),u=v('tu'),p=v('tp');
+  if(!id||!t||!u||!p){document.getElementById('tout').value='Bitte Kürzel, Titel, Link und Passwort ausfüllen.';return;}
+  document.getElementById('tout').value="  {g:'"+q(g)+"', id:'"+q(id)+"', t:'"+q(t)+"', s:'"+q(s)+"', c:'"+chk(p,id)+"', u:'"+enc(u,p,id)+"'},";
+});
+render();
+</script>
 </body>
 </html>
