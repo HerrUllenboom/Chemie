@@ -6,20 +6,20 @@ Nov 17, 2026 · @Nils Ullenboom
 
 | Animation | Version | Lerngruppe / Thema | Lupen-Code | Link |
 | --- | --- | --- | --- | --- |
-| Radikalische Substitution | V1 | Q2 · Methan + Brom | **3516** | [öffnen](https://claude.ai/artifact/NgKFRGYhpKCByAMeeGx1Sv) |
-| Radikalische Substitution | V2 | Q2 · Ethan + Brom | **3516** | [öffnen](https://claude.ai/artifact/KbqH3CCdevRHsCXbA5Jzi7) |
-| Elektrophile Addition | – | Q2 · Ethen + Brom | **1635** | [öffnen](https://claude.ai/artifact/6o6bE2yLZwr5bynVeUGCwK) |
-| Eliminierung | – | Q2 · Bromethan + Hydroxid | **8135** | [öffnen](https://claude.ai/artifact/QeoR6QzmB1XPKM7iQQzWfD) |
-| Radikalische Polymerisation | V1 | Q2 · Ethen zu Polyethen | **2428** | [öffnen](https://claude.ai/artifact/Qyd7qwwxMPr2zYLRBhiZWi) |
-| Radikalische Polymerisation | V2 (mit Van-der-Waals-Kräften) | Q2 · Ethen zu Polyethen | **2428** | [öffnen](https://claude.ai/artifact/TgqHmUzdsGC9YDAJpW5sVS) |
-| Radikalische Addition | – | Q2 · Ethen + Brom im Licht | **6135** | [öffnen](https://claude.ai/artifact/DjLvfxsN1FbHUEUSPxVeAK) |
+| Radikalische Substitution | V1 | Q2 · Methan + Brom | **3516** | [öffnen](https://herrullenboom.github.io/Chemie/animationen/radikalische-substitution.html) |
+| Radikalische Substitution | V2 | Q2 · Ethan + Brom | **3516** | [öffnen](https://herrullenboom.github.io/Chemie/animationen/radikalische-substitution-v2.html) |
+| Elektrophile Addition | – | Q2 · Ethen + Brom | **1635** | [öffnen](https://herrullenboom.github.io/Chemie/animationen/elektrophile-addition.html) |
+| Eliminierung | – | Q2 · Bromethan + Hydroxid | **8135** | [öffnen](https://herrullenboom.github.io/Chemie/animationen/eliminierung.html) |
+| Radikalische Polymerisation | V1 | Q2 · Ethen zu Polyethen | **2428** | [öffnen](https://herrullenboom.github.io/Chemie/animationen/radikalische-polymerisation.html) |
+| Radikalische Polymerisation | V2 (mit Van-der-Waals-Kräften) | Q2 · Ethen zu Polyethen | **2428** | [öffnen](https://herrullenboom.github.io/Chemie/animationen/radikalische-polymerisation-v2.html) |
+| Radikalische Addition | – | Q2 · Ethen + Brom im Licht | **6135** | [öffnen](https://herrullenboom.github.io/Chemie/animationen/radikalische-addition.html) |
 
 ## Animationen ohne Lupe
 
 | Animation | Thema | Link |
 | --- | --- | --- |
-| Cracken von Alkanen | Q2 · Alkane | [öffnen](https://claude.ai/artifact/PoKu2v5DCwMre7ejhC3RBJ) |
-| Aggregatzustände | Teilchenmodell, Temperatur und Druck | [öffnen](https://claude.ai/artifact/VrAB4QXnFapJk7Nk8rBAbS) |
+| Cracken von Alkanen | Q2 · Alkane | [öffnen](https://herrullenboom.github.io/Chemie/animationen/cracken-von-alkanen.html) |
+| Aggregatzustände | Teilchenmodell, Temperatur und Druck | [öffnen](https://herrullenboom.github.io/Chemie/animationen/aggregatzustaende.html) |
 
 ## Passwörter Landing Page (GitHub)
 
